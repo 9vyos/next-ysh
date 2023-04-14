@@ -1,4 +1,7 @@
+"use client";
 import "./globals.css";
+import { ApolloProvider } from "@apollo/client";
+import client from "./apollo-client";
 
 export const metadata = {
   title: "Create Next App",
@@ -12,7 +15,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <ApolloProvider client={client}>{children}</ApolloProvider>
+      </body>
     </html>
   );
 }

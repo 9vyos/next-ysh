@@ -29,7 +29,7 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "global.d.ts",
-    "src/app/dashboard/constants.js"
+    "src/app/editor/constants.js"
   ],
   "exclude": ["node_modules"]
 }
