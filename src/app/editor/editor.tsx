@@ -2,7 +2,7 @@
 import React, { useState, memo, useEffect, useRef } from "react";
 import EditorJS, { OutputData } from "@editorjs/editorjs";
 
-import { EDITOR_TOOLS } from "../editor/constants";
+import { EDITOR_TOOLS } from "./constants";
 
 //props
 type Props = {

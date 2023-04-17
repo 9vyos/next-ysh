@@ -2,14 +2,14 @@ import { MongoClient } from "mongodb";
 const url =
   "mongodb+srv://admin:qwer1234@cluster0.pvxvusg.mongodb.net/?retryWrites=true&w=majority";
 const options = { useNewUrlParser: true };
-let connectDB;
+let client;
 
 if (process.env.NODE_ENV === "development") {
   if (!global._mongo) {
     global._mongo = new MongoClient(url, options).connect();
   }
-  connectDB = global._mongo;
+  client = global._mongo;
 } else {
-  connectDB = new MongoClient(url, options).connect();
+  client = new MongoClient(url, options).connect();
 }
-export { connectDB };
+export { client };

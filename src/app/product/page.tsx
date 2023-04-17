@@ -319,7 +319,7 @@ const team = [
 ];
 
 import { useQuery, gql } from "@apollo/client";
-import EditorBox from "../components/editor";
+import EditorBox from "../editor/editor";
 
 interface Country {
   code: string;
