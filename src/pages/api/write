@@ -1,0 +1,5 @@
+export default function handler(request: any, answer: any) {
+  console.log(request);
+
+  return answer.status(200).json("ok");
+}
