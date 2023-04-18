@@ -26,7 +26,7 @@ export default function Write() {
               name="content"
             />
           </div>
-          <button type="submit">버튼</button>
+          <button type="submit">전송</button>
         </div>
       </form>
     </div>
