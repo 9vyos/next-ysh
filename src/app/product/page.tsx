@@ -318,28 +318,7 @@ const team = [
   },
 ];
 
-import { useQuery, gql } from "@apollo/client";
 import EditorBox from "../editor/editor";
-
-interface Country {
-  code: string;
-  emoji: string;
-  name: string;
-}
-
-interface CountryData {
-  countries: Country[];
-}
-
-const GET_COUNTRIES = gql`
-  query Countries {
-    countries {
-      code
-      name
-      emoji
-    }
-  }
-`;
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
@@ -347,19 +326,6 @@ function classNames(...classes: string[]) {
 
 export default function Example() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-
-  const { data, loading, error } = useQuery<CountryData>(GET_COUNTRIES);
-
-  if (loading) {
-    return <h2>로딩중</h2>;
-  }
-
-  if (error) {
-    return <h1>에러 발생</h1>;
-  }
-
-  const countries = data?.countries.slice(0, 4);
-  console.log(countries);
 
   return (
     <>

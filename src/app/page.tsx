@@ -32,7 +32,6 @@ import {
   ChevronDownIcon,
   MagnifyingGlassIcon,
 } from "@heroicons/react/20/solid";
-import List from "./components/List";
 
 const navigation = [
   { name: "Dashboard", href: "#", icon: HomeIcon, current: true },
@@ -385,7 +384,7 @@ export default function Example() {
 
           <main className="py-10">
             <div className="px-4 sm:px-6 lg:px-8">
-              <List />
+              <h3>HELLO!</h3>
             </div>
           </main>
         </div>

@@ -18,7 +18,7 @@ export default async function List() {
   const result = await collection.find().toArray();
 
   // 조회된 사용자 정보 출력
-  console.log(result);
+  // console.log(result);
 
   return (
     <div className="list-bg">
