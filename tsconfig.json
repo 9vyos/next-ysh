@@ -29,7 +29,8 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "global.d.ts",
-    "src/app/editor/constants.js"
+    "src/app/editor/constants.js",
+    "src/pages/api/auth/[...nextauth].js"
   ],
   "exclude": ["node_modules"]
 }

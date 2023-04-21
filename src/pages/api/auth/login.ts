@@ -1,4 +1,4 @@
-import { getClient } from "./../../app/apollo/apollo-client";
+import { getClient } from "../../../app/apollo/apollo-client";
 import { gql } from "@apollo/client";
 
 export default async function handler(request: any, answer: any) {

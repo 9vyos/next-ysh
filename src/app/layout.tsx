@@ -1,6 +1,6 @@
 import "./globals.css";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/pages/api/auth/[...nextauth]";
+import { authOptions } from "@/pages/api/auth/[...nextauth].js";
 import Login from "./components/Login";
 import Logout from "./components/Logout";
 
