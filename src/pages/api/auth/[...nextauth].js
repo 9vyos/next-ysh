@@ -17,7 +17,7 @@ export const authOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials, req) {
-        console.log(credentials);
+        console.log("credentials", credentials);
         const query = gql`
         mutation {
           login(
@@ -28,9 +28,11 @@ export const authOptions = {
           }
         }
         `;
-
+        console.log("query", query);
         const client = getClient();
+        console.log("client", client);
         const { data } = await client.mutate({ mutation: query });
+        console.log("data", data);
         return data;
       },
     }),

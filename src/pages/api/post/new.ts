@@ -15,6 +15,6 @@ export default async function handler(request: any, answer: any) {
   const result = await collection.insertOne(request.body);
 
   if (request.method == "POST") {
-    return answer.status(200).json(result); //post할때만
+    return answer.status(200).redirect("/list"); //post할때만
   }
 }
