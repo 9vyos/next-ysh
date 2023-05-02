@@ -1,6 +1,7 @@
 import { MongoClient } from "mongodb";
 import Link from "next/link";
 import DetailLink from "./DetailLink";
+import ListItem from "./ListItem";
 
 export default async function List() {
   const url =
@@ -18,20 +19,11 @@ export default async function List() {
   const result = await collection.find().toArray();
 
   // 조회된 사용자 정보 출력
-  // console.log(result);
+  console.log("!!!!!!!!!!!!!!", result);
 
   return (
     <div className="list-bg">
-      {result.map((list, i) => (
-        <div key={i} className="list-item">
-          {/* <DetailLink id={list._id}></DetailLink> */}
-          <Link href={"/detail/" + list._id}>
-            <h4>{list.title}</h4>
-          </Link>
-          <Link href={"/edit/" + list._id}>✏️</Link>
-          <p>1월 1일</p>
-        </div>
-      ))}
+      <ListItem result={result}></ListItem>
     </div>
   );
 }

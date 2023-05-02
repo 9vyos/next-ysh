@@ -28,11 +28,8 @@ export const authOptions = {
           }
         }
         `;
-        console.log("query", query);
         const client = getClient();
-        console.log("client", client);
         const { data } = await client.mutate({ mutation: query });
-        console.log("data", data);
         return data;
       },
     }),
