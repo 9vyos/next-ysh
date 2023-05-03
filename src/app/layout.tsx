@@ -3,6 +3,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/pages/api/auth/[...nextauth].js";
 import Login from "./components/Login";
 import Logout from "./components/Logout";
+import Navbar from "./components/Navbar";
 
 export const metadata = {
   title: "Create Next App",
@@ -15,21 +16,11 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   let session = await getServerSession(authOptions);
-  console.log(session);
+  console.log("session", session);
   return (
     <html lang="en">
       <body>
-        <div style={{ zIndex: 99, position: "relative", background: "#fff" }}>
-          {session ? (
-            <span>
-              {session.user?.email}
-              <Logout />
-            </span>
-          ) : (
-            <Login />
-          )}
-        </div>
-
+        <Navbar user={session?.user} />
         {children}
       </body>
     </html>
