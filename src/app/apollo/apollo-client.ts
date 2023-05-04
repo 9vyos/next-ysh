@@ -8,7 +8,7 @@ export const getClient = () => {
   if (!client || typeof window === "undefined") {
     client = new ApolloClient({
       link: new HttpLink({
-        uri: "http://moonshot-api.hannah-log.site/graphql",
+        uri: "https://moonshot.hannah-log.site/graphql",
       }),
       cache: new InMemoryCache(),
     });

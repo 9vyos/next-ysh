@@ -1,29 +1,35 @@
-import { MongoClient } from "mongodb";
-import Link from "next/link";
-import DetailLink from "./DetailLink";
 import ListItem from "./ListItem";
+import { gql } from "@apollo/client";
+import { getClient } from "../apollo/apollo-client";
 
 export default async function List() {
-  const url =
-    "mongodb+srv://admin:qwer1234@cluster0.pvxvusg.mongodb.net/?retryWrites=true&w=majority";
-  // const options = { useNewUrlParser: true };
-  const dbName = "board-study";
-
-  const client = await MongoClient.connect(url);
-  const connectDB = client.db(dbName);
-
-  // MongoDB 연결 완료
-  console.log("Connected to MongoDB!");
-
-  const collection = connectDB.collection("post");
-  const result = await collection.find().toArray();
-
-  // 조회된 사용자 정보 출력
-  console.log("!!!!!!!!!!!!!!", result);
+  const query = gql`
+    query {
+      getProducts {
+        id
+        name
+        price
+        description
+        category {
+          id
+          name
+          createdAt
+          updatedAt
+        }
+        productImages {
+          id
+          imageUrl
+          isMain
+        }
+      }
+    }
+  `;
+  const client = getClient();
+  const { data } = await client.query({ query });
 
   return (
     <div className="list-bg">
-      <ListItem result={result}></ListItem>
+      <ListItem result={data.getProducts}></ListItem>
     </div>
   );
 }

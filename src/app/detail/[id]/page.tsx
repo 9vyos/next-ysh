@@ -1,36 +1,36 @@
-import { MongoClient, ObjectId } from "mongodb";
+import { getClient } from "@/app/apollo/apollo-client";
+import { gql } from "@apollo/client";
 
 export default async function Detail(props: any) {
-  const url =
-    "mongodb+srv://admin:qwer1234@cluster0.pvxvusg.mongodb.net/?retryWrites=true&w=majority";
-  // const options = { useNewUrlParser: true };
-  const dbName = "board-study";
-
-  const client = await MongoClient.connect(url);
-  const connectDB = client.db(dbName);
-
-  // MongoDB 연결 완료
-  console.log("Connected to MongoDB!");
-
-  interface DetailPosts {
-    _id: ObjectId;
-    title: String;
-    content: String;
+  const query = gql`
+  query {
+    getOneProduct(productId:${props.params.id}){
+        id
+         name
+        price
+        description
+        category{
+          id
+          name
+          createdAt
+          updatedAt
+        }
+        productImages{
+          id
+          imageUrl
+          isMain
+        } 
+    }
   }
-
-  const collection = connectDB.collection("post");
-  const result = (await collection.findOne({
-    _id: new ObjectId(props.params.id),
-  })) as DetailPosts;
-
-  // 조회된 사용자 정보 출력
-  // console.log(result.title);
-
+  `;
+  const client = getClient();
+  const { data } = await client.query({ query });
+  console.log(data);
   return (
     <div>
       <h4>상세페이지임</h4>
-      <h4>{result.title}</h4>
-      <p>{result.content}</p>
+      <h4>{data.getOneProduct.name}</h4>
+      <p>{data.getOneProduct.description}</p>
     </div>
   );
 }

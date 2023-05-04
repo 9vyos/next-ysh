@@ -6,10 +6,10 @@ import { gql } from "@apollo/client";
 
 export const authOptions = {
   providers: [
-    GithubProvider({
-      clientId: "8e8857554449401ec66f",
-      clientSecret: "510e01001daf8140614b636797b5d3259b5ac1a5",
-    }),
+    // GithubProvider({
+    //   clientId: "8e8857554449401ec66f",
+    //   clientSecret: "510e01001daf8140614b636797b5d3259b5ac1a5",
+    // }),
     CredentialsProvider({
       name: "Credentials",
       credentials: {
@@ -34,7 +34,29 @@ export const authOptions = {
       },
     }),
   ],
+  session: {
+    strategy: "jwt",
+    maxAge: 24 * 60 * 60, //1일
+  },
 
+  callbacks: {
+    jwt: async ({ token, user }) => {
+      if (user) {
+        token.user = {};
+        token.user.userId = user.login.userId;
+        token.user.jwtToken = user.login.jwtToken;
+      }
+      return token;
+    },
+
+    session: async ({ session, token }) => {
+      session.login = token.user;
+      return session;
+    },
+    async redirect({ url, baseUrl }) {
+      return "/";
+    },
+  },
   secret: "oidfjrnkjsdfeoee213424!wsedfjw!34^&&smdnfuq!@#!@#98(*^&345",
 };
 export default NextAuth(authOptions);

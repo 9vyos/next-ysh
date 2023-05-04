@@ -19,62 +19,39 @@ import { Dialog, Menu, Transition } from "@headlessui/react";
 import {
   Bars3Icon,
   BellIcon,
-  CalendarIcon,
-  ChartPieIcon,
   Cog6ToothIcon,
-  DocumentDuplicateIcon,
   FolderIcon,
   HomeIcon,
-  UsersIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import {
   ChevronDownIcon,
   MagnifyingGlassIcon,
 } from "@heroicons/react/20/solid";
-import Logout from "./Logout";
-import Login from "./Login";
+import { signIn, signOut } from "next-auth/react";
 
 const navigation = [
   { name: "Dashboard", href: "#", icon: HomeIcon, current: true },
-  { name: "Team", href: "#", icon: UsersIcon, current: false },
-  { name: "Products", href: "/product", icon: FolderIcon, current: false },
-  { name: "Calendar", href: "#", icon: CalendarIcon, current: false },
-  { name: "Documents", href: "#", icon: DocumentDuplicateIcon, current: false },
-  { name: "Reports", href: "#", icon: ChartPieIcon, current: false },
-];
-
-const userNavigation = [
-  { name: "Your profile", href: "#" },
-  { name: "Sign out", href: "#" },
+  { name: "Products", href: "/list", icon: FolderIcon, current: false },
 ];
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-interface Proflie {
-  name: string | null;
-  email: string | null;
-  image: string | null;
-}
-
-export default function Example(user: Proflie) {
-  let profile = user;
-  console.log("profile", profile);
+export default function Example(data: any) {
+  let userName;
+  if (data.data.getUser.name) {
+    userName = data.data.getUser.name;
+  } else {
+    userName = undefined;
+  }
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
     <>
-      {/*
-        This example requires updating your template:
-
-        ```
-        <html class="h-full bg-white">
-        <body class="h-full">
-        ```
-      */}
+      {}
       <div>
         <Transition.Root show={sidebarOpen} as={Fragment}>
           <Dialog
@@ -162,19 +139,24 @@ export default function Example(user: Proflie) {
                             ))}
                           </ul>
                         </li>
-
-                        <li className="mt-auto">
-                          <a
-                            href="#"
-                            className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-400 hover:bg-gray-800 hover:text-white"
-                          >
-                            <Cog6ToothIcon
-                              className="h-6 w-6 shrink-0"
-                              aria-hidden="true"
-                            />
-                            Settings
-                          </a>
-                        </li>
+                        {userName ? (
+                          <li className="mt-auto">
+                            <button
+                              onClick={() => {
+                                signOut();
+                              }}
+                              className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-400 hover:bg-gray-800 hover:text-white"
+                            >
+                              <Cog6ToothIcon
+                                className="h-6 w-6 shrink-0"
+                                aria-hidden="true"
+                              />
+                              Logout
+                            </button>
+                          </li>
+                        ) : (
+                          <></>
+                        )}
                       </ul>
                     </nav>
                   </div>
@@ -221,18 +203,24 @@ export default function Example(user: Proflie) {
                   </ul>
                 </li>
 
-                <li className="mt-auto">
-                  <a
-                    href="#"
-                    className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-400 hover:bg-gray-800 hover:text-white"
-                  >
-                    <Cog6ToothIcon
-                      className="h-6 w-6 shrink-0"
-                      aria-hidden="true"
-                    />
-                    Settings
-                  </a>
-                </li>
+                {userName ? (
+                  <li className="mt-auto">
+                    <button
+                      onClick={() => {
+                        signOut();
+                      }}
+                      className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-400 hover:bg-gray-800 hover:text-white"
+                    >
+                      <Cog6ToothIcon
+                        className="h-6 w-6 shrink-0"
+                        aria-hidden="true"
+                      />
+                      Logout
+                    </button>
+                  </li>
+                ) : (
+                  <></>
+                )}
               </ul>
             </nav>
           </div>
@@ -288,56 +276,40 @@ export default function Example(user: Proflie) {
                 />
 
                 {/* Profile dropdown */}
-                <Menu as="div" className="relative">
-                  <Menu.Button className="-m-1.5 flex items-center p-1.5">
-                    <span className="sr-only">Open user menu</span>
-                    <img
-                      className="h-8 w-8 rounded-full bg-gray-50"
-                      src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                      alt=""
-                    />
-                    <span className="hidden lg:flex lg:items-center">
-                      <span
-                        className="ml-4 text-sm font-semibold leading-6 text-gray-900"
-                        aria-hidden="true"
-                      >
-                        {profile ? <span>{profile.name}</span> : <Login />}
-                      </span>
-                      <ChevronDownIcon
-                        className="ml-2 h-5 w-5 text-gray-400"
-                        aria-hidden="true"
-                      />
-                    </span>
-                  </Menu.Button>
-                  <Transition
-                    as={Fragment}
-                    enter="transition ease-out duration-100"
-                    enterFrom="transform opacity-0 scale-95"
-                    enterTo="transform opacity-100 scale-100"
-                    leave="transition ease-in duration-75"
-                    leaveFrom="transform opacity-100 scale-100"
-                    leaveTo="transform opacity-0 scale-95"
+
+                <span className="sr-only">Open user menu</span>
+                <img
+                  className="h-8 w-8 rounded-full bg-gray-50"
+                  src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                  alt=""
+                />
+                <span className="hidden lg:flex lg:items-center">
+                  <span
+                    className="ml-4 text-sm font-semibold leading-6 text-gray-900"
+                    aria-hidden="true"
                   >
-                    <Menu.Items className="absolute right-0 z-10 mt-2.5 w-32 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none">
-                      {profile ? (
-                        <a>
-                          <Logout />
-                        </a>
-                      ) : (
-                        ""
-                      )}
-                    </Menu.Items>
-                  </Transition>
-                </Menu>
+                    {userName ? (
+                      <>
+                        <span>{userName}</span>
+                      </>
+                    ) : (
+                      <button
+                        onClick={() => {
+                          signIn();
+                        }}
+                      >
+                        LogIn
+                      </button>
+                    )}
+                  </span>
+                  <ChevronDownIcon
+                    className="ml-2 h-5 w-5 text-gray-400"
+                    aria-hidden="true"
+                  />
+                </span>
               </div>
             </div>
           </div>
-
-          <main className="py-10">
-            <div className="px-4 sm:px-6 lg:px-8">
-              <h3>HELLO!</h3>
-            </div>
-          </main>
         </div>
       </div>
     </>
