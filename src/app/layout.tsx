@@ -40,6 +40,7 @@ export default async function RootLayout({
         }
       }
     `;
+    console.log("사용자 토근  :", token);
     const client = new ApolloClient({
       link: new HttpLink({
         uri: "https://moonshot.hannah-log.site/graphql",

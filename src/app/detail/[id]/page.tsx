@@ -6,14 +6,12 @@ export default async function Detail(props: any) {
   query {
     getOneProduct(productId:${props.params.id}){
         id
-         name
+        name
         price
         description
         category{
           id
           name
-          createdAt
-          updatedAt
         }
         productImages{
           id
@@ -26,11 +24,17 @@ export default async function Detail(props: any) {
   const client = getClient();
   const { data } = await client.query({ query });
   console.log(data);
+
   return (
-    <div>
-      <h4>상세페이지임</h4>
-      <h4>{data.getOneProduct.name}</h4>
-      <p>{data.getOneProduct.description}</p>
+    <div className="bg-white">
+      <div className="mx-auto max-w-2xl lg:max-w-7xl lg:px-8">
+        <h2 className="text-2xl font-bold tracking-tight text-gray-900">
+          {data.getOneProduct.name}
+        </h2>
+        <p>카테고리 : {data.getOneProduct.category.name}</p>
+        <p>가격 : {data.getOneProduct.price}</p>
+        <p>설명 : {data.getOneProduct.description}</p>
+      </div>
     </div>
   );
 }

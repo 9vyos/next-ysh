@@ -5,34 +5,10 @@ export default function ListItem(result: any) {
   const products = result.result;
   // console.log(products);
   return (
-    // <div>
-    //   {items.map((list: any, i: number) => (
-    //     <div key={i} className="list-item">
-    //       <Link href={"/detail/" + list.id}>
-    //         <h4>{list.name}</h4>
-    //       </Link>
-    //       <Link href={"/edit/" + list.id}>✏️</Link>
-    //       <span
-    //         onClick={() => {
-    //           fetch("/api/post/delete", {
-    //             method: "DELETE",
-    //             body: items[i]._id,
-    //           }).then(() => {
-    //             alert("삭제완료!");
-    //           });
-    //         }}
-    //       >
-    //         🗑️
-    //       </span>
-    //       <p>1월 1일</p>
-    //     </div>
-    //   ))}
-    // </div>
-
     <div className="bg-white">
       <div className="mx-auto max-w-2xl lg:max-w-7xl lg:px-8">
         <h2 className="text-2xl font-bold tracking-tight text-gray-900">
-          Customers also purchased
+          Products List
         </h2>
 
         <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
@@ -40,7 +16,7 @@ export default function ListItem(result: any) {
             <div key={product.id} className="group relative">
               <div className="min-h-80 aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
                 <img
-                  src={product.imageUrl}
+                  src={product.productImages[0].imageUrl}
                   alt={product.imageAlt}
                   className="h-full w-full object-cover object-center lg:h-full lg:w-full"
                 />
@@ -48,7 +24,7 @@ export default function ListItem(result: any) {
               <div className="mt-4 flex justify-between">
                 <div>
                   <h3 className="text-sm text-gray-700">
-                    <a href={"/detail/" + product.id}>
+                    <a href={"/edit/" + product.id}>
                       <span aria-hidden="true" className="absolute inset-0" />
                       {product.name}
                     </a>
