@@ -26,6 +26,7 @@ export default async function List() {
   `;
   const client = getClient();
   const { data } = await client.query({ query });
+  // console.log(data);
 
   return (
     <div className="list-bg">

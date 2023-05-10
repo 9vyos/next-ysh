@@ -27,7 +27,7 @@ export default async function Edit(props: any) {
   `;
   const client = getClient();
   const { data } = await client.query({ query });
-  console.log(data);
+  // console.log(data);
 
   return (
     <div className="bg-white">
@@ -37,7 +37,7 @@ export default async function Edit(props: any) {
         </h2>
         <form action="/api/post/edit" method="POST">
           <input
-            type="text"
+            type="number"
             name="id"
             defaultValue={props.params.id}
             id="first_name"

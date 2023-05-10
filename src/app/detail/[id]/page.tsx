@@ -23,7 +23,7 @@ export default async function Detail(props: any) {
   `;
   const client = getClient();
   const { data } = await client.query({ query });
-  console.log(data);
+  // console.log(data);
 
   return (
     <div className="bg-white">
